@@ -20,7 +20,7 @@ app.get("/api/persons", async (_req, res) => {
 
   let result = [];
   for (const person of persons) {
-    const data = getPersonData(person);
+    const data = await getPersonData(person);
 
     if (data) {
       result.push(data);

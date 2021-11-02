@@ -1,4 +1,6 @@
-export const getPersonData = (person) => {
+import { getFaceData } from "./getFaceData.js";
+
+export const getPersonData = async (person) => {
   try {
     const details = person.querySelector(".memberMainDetails");
 
@@ -10,8 +12,8 @@ export const getPersonData = (person) => {
 
     // Get image
     const image = person.querySelector(".gridImg").getAttribute("style");
-    // TODO: Get image url from style string
-    // TODO: Get image face data
+    const imageUrl = image.match(/https[^']*/)[0];
+    const faceData = await getFaceData(imageUrl);
 
     // Get role
     const role = details.querySelector(".role").innerText;
@@ -31,7 +33,10 @@ export const getPersonData = (person) => {
     return {
       id,
       name,
-      image,
+      image: {
+        url: imageUrl,
+        faceData,
+      },
       role,
       quote,
     };

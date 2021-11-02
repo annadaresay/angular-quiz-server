@@ -27,12 +27,11 @@ const getImageBuffer = async (imageUrl) => {
 };
 
 export const getFaceData = async (url) => {
+  console.log(`Face detection START: ${url}`);
   const input = new Image();
   input.src = await getImageBuffer(url);
-
   const faceData = await faceapi.detectSingleFace(input, options);
+  console.log(`Face detection END: ${url}`);
 
-  return {
-    faceData,
-  };
+  return faceData;
 };
